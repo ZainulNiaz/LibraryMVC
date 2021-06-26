@@ -1,0 +1,94 @@
+{% extends "templates/base.twig" %}
+
+{% block title %} My Website home {% endblock %}
+
+{% block body %}
+
+<div class="jumbotron">
+  <h1 class="display-4">ClientHome</h1>
+  <h1 class="display-4">View Available Books</h1>
+  <table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Number of copies</th>
+        <th scope="col">Request</th>
+        </tr>
+    </thead>
+   <tbody> 
+    {% for post in bookdata %}
+    <tr>
+      <th scope="row">{{post.bookid}}</th>
+      <td>{{post.title}}</td>
+      <td>{{post.noofcopies}}</td>
+      <td>
+          <form action="/clienthome" method="POST">
+              <div class="form-group row">
+              <div class="col-sm-10">
+                <input type="hidden" class="form-control" id="bookid" name="bookid" value = {{post.bookid}}>
+              </div>
+              </div>
+              <button type="submit" class="btn btn-primary mb-2">Request Book</button>
+            </form>
+      </td>
+    </tr>
+    {% endfor %} 
+   </tbody>
+  
+</table>
+  
+  
+</div>
+
+
+<div class="jumbotron">
+  <h1 class="display-4">Pending Requests</h1>
+  <table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+
+        </tr>
+    </thead>
+   <tbody> 
+    {% for post in pendingrequests %}
+    <tr>
+      <th scope="row">{{post.bookid}}</th>
+      <td>{{post.title}}</td>
+    </tr>
+    {% endfor %} 
+   </tbody>
+  
+  </table>
+  
+  
+</div>
+
+<div class="jumbotron">
+  <h1 class="display-4">Books Owned</h1>
+  <table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+
+        </tr>
+    </thead>
+   <tbody> 
+    {% for post in booksowned %}
+    <tr>
+      <th scope="row">{{post.bookid}}</th>
+      <td>{{post.title}}</td>
+    </tr>
+    {% endfor %} 
+   </tbody>
+  
+  </table>
+  
+  
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,44 @@
+{% extends "templates/base.twig" %}
+
+{% block title %} My Website home {% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+  <h1 class="display-4">Login</h1>
+
+<form action="/login" method="POST">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control"  id="password" name="password" placeholder="Password">
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  {% if notloggedin %}
+  <p>
+    <em> Incorrect Credentials</em>
+  </p>
+  {% endif %}
+  
+</form>
+  
+</div>
+
+<o1>
+  {% for post in posts %}
+  <li>
+    <a href="/post/{{ post.id }}">{{ post.name }}</a>
+    <a href="/post/{{ post.id }}">{{ post.email }}</a>
+    <a href="/post/{{ post.id }}">{{ post.password }}</a>
+  </li>
+  {% endfor %} 
+
+</o1>
+
+{% endblock %}
+
