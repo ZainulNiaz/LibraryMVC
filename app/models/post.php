@@ -62,8 +62,8 @@ class Post {
         $stmt = $db->prepare("SELECT * FROM ? ");
         $stmt-> execute([$email]);
 
-        $rows = $stmt->fetchAll();
-        return $rows;
+        $rows2 = $stmt->fetchAll();
+        return $rows2;
     }
 
 
@@ -162,7 +162,7 @@ class Post {
         var_dump($row2["email"]);
         if($row["noofcopies"]>0){
             $stmt2 = $db->prepare("UPDATE books SET noofcopies = ? WHERE bookid = ?");
-            $stmt2->execute([  $row["noofcopies"]-1 , $bookid]);
+            $stmt2->execute([  $row["noofcopies"] , $bookid]);
             $stmt3 = $db->prepare("INSERT INTO requests(bookid, userid, email) VALUES ( ?, ?, ?) ");
             $stmt3->execute([$bookid, $_SESSION["userid"], $row2["email"] ]);
 

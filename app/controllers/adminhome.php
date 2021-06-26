@@ -7,10 +7,18 @@ use PDO;
 class Adminhome {
     public function get() {
         session_start();
-        echo \View\Loader::make()->render("templates/adminhome.twig", array(
-            "bookdata" => \Model\Post::get_allbooks(),
-            "requests" => \Model\Post::showallrequests(),
-        ));
+        if($_SESSION["adminid"] !=NULL){
+            echo \View\Loader::make()->render("templates/adminhome.twig", array(
+                "bookdata" => \Model\Post::get_allbooks(),
+                "requests" => \Model\Post::showallrequests(),
+            ));
+        }
+        else{
+            echo \View\Loader::make()->render("templates/adminlogin.twig" ,array(
+                "userdata" => \Model\Post::get_all_userdata(),
+                )); 
+        }
+       
     }
 
     public function post() {
@@ -23,12 +31,18 @@ class Adminhome {
         if($title == NULL){
 
         }
-        else{
+        else if($_SESSION["adminid"]!= NULL ){
+
             \Model\Post::addbook($title, $noofcopies );
         echo \View\Loader::make()->render("templates/adminhome.twig", array(
             "bookdata" => \Model\Post::get_allbooks(),
             "requests" => \Model\Post::showallrequests(),
         ));
+        }
+        else{
+            echo \View\Loader::make()->render("templates/adminlogin.twig" ,array(
+                "userdata" => \Model\Post::get_all_userdata(),
+                )); 
         }
 
     }
