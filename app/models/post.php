@@ -50,6 +50,14 @@ class Post {
         return $rows;
     }
 
+    public static function get_adminbooks(){
+        $db = \DB::get_instance();
+        $stmt = $db->prepare("SELECT * FROM books");
+        $stmt-> execute(["admin"]);
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
+
     public static function get_ownedbooks(){
         $db = \DB::get_instance();
         $stmt2 = $db->prepare("SELECT * FROM books WHERE owner = ?");

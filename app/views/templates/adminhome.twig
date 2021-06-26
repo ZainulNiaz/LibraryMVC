@@ -33,7 +33,7 @@
 <div class="jumbotron">
   <h1 class="display-4">All Pending Requests</h1>
 
-<table class="table table-bordered table-dark">
+  <table class="table table-bordered table-dark">
     <thead>
         <tr>
         <th scope="col">Request No</th>
@@ -74,9 +74,38 @@
     {% endfor %} 
    </tbody>
   
-</table>
+  </table>
   
 </div>
+
+
+<div class="jumbotron">
+  <h1 class="display-4">View all Books</h1>
+  <table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Owner</th>
+        </tr>
+    </thead>
+   <tbody> 
+    {% for post in bookdata %}
+    <tr>
+      <th scope="row">{{post.bookid}}</th>
+      <td>{{post.title}}</td>
+      <td>{{ post.owner}}</td>
+    </tr>
+    {% endfor %} 
+   </tbody>
+  
+</table>
+  
+  
+</div>
+
+
+
 
 {% endblock %}
 

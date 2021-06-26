@@ -9,7 +9,7 @@ class Adminhome {
         session_start();
         if($_SESSION["adminid"] !=NULL){
             echo \View\Loader::make()->render("templates/adminhome.twig", array(
-                "bookdata" => \Model\Post::get_allbooks(),
+                "bookdata" => \Model\Post::get_adminbooks(),
                 "requests" => \Model\Post::showallrequests(),
             ));
         }
@@ -33,9 +33,14 @@ class Adminhome {
         }
         else if($_SESSION["adminid"]!= NULL ){
 
+        for ($x = 0; $x < $noofcopies; $x++) {
             \Model\Post::addbook($title, $noofcopies );
+        }
+        
+        
+        \Model\Post::addbook($title, $noofcopies );
         echo \View\Loader::make()->render("templates/adminhome.twig", array(
-            "bookdata" => \Model\Post::get_allbooks(),
+            "bookdata" => \Model\Post::get_adminbooks(),
             "requests" => \Model\Post::showallrequests(),
         ));
         }

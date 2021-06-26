@@ -19,7 +19,8 @@ class Adminlogin {
         \Model\Post::adminlogin( $email, $password );
         if($_SESSION["adminid"] != NULL){
             echo \View\Loader::make()->render("templates/adminhome.twig", array(
-                "bookdata" => \Model\Post::get_allbooks(),
+                "bookdata" => \Model\Post::get_adminbooks(),
+                "requests" => \Model\Post::showallrequests(),
             ));
         }
         else{
