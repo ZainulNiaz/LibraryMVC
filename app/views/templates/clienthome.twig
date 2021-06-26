@@ -12,7 +12,6 @@
         <tr>
         <th scope="col">#</th>
         <th scope="col">Title</th>
-        <th scope="col">Number of copies</th>
         <th scope="col">Request</th>
         </tr>
     </thead>
@@ -21,7 +20,6 @@
     <tr>
       <th scope="row">{{post.bookid}}</th>
       <td>{{post.title}}</td>
-      <td>{{post.noofcopies}}</td>
       <td>
           <form action="/clienthome" method="POST">
               <div class="form-group row">
@@ -73,14 +71,25 @@
         <tr>
         <th scope="col">#</th>
         <th scope="col">Title</th>
-
+        <th scope="col">Return Book</th>
+        
         </tr>
     </thead>
    <tbody> 
-    {% for post in booksowned %}
+    {% for post in ownedbooks %}
     <tr>
       <th scope="row">{{post.bookid}}</th>
       <td>{{post.title}}</td>
+      <td>
+          <form action="/returnbook" method="POST">
+              <div class="form-group row">
+              <div class="col-sm-10">
+                <input type="hidden" class="form-control" id="bookid" name="bookid" value = {{post.bookid}}>
+              </div>
+              </div>
+              <button type="submit" class="btn btn-primary mb-2">Return</button>
+          </form>
+      </td>
     </tr>
     {% endfor %} 
    </tbody>

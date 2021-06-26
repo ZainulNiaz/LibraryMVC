@@ -19,6 +19,7 @@ class Returnbook {
         echo \View\Loader::make()->render("templates/clienthome.twig" ,array(
             "bookdata" => \Model\Post::get_allbooks(),
             "pendingrequests" =>  \Model\Post::showpendingrequests(),
+            "ownedbooks" =>  \Model\Post::get_ownedbooks(),
             )); 
     }
 }
