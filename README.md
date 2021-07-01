@@ -2,5 +2,6 @@
 
 1. Clone this repository by `git clone https://github.com/ZainulNiaz/LibraryMVC`
 2. `cd LibraryMVC`
-3. Run the bash Script `./script.sh`
+3. Make the script executable `chmod 744 script`
+4. Run the bash Script `./script.sh`
 
