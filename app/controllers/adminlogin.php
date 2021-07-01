@@ -1,34 +1,39 @@
 <?php
 
 namespace Controller;
+session_start();
 
 class Adminlogin {
     public function get() {
-        session_start();
-        echo \View\Loader::make()->render("templates/adminlogin.twig" ,array(
-            "userdata" => \Model\Post::get_all_userdata(),
-            )); 
-
+   
+        if(isset($_SESSION["adminid"])){
+            header("Location: /adminhome");
+        }
+        else{
+            \Controller\Utils::renderAdminLogin(); 
+        }
+       
     }
 
     public function post() {
-        session_start();
+   
         $email = $_POST["email"];
         $password = $_POST["password"];
-        // var_dump($_POST);
-        \Model\Post::adminlogin( $email, $password );
-        if($_SESSION["adminid"] != NULL){
-            echo \View\Loader::make()->render("templates/adminhome.twig", array(
-                "bookdata" => \Model\Post::get_adminbooks(),
-                "requests" => \Model\Post::showallrequests(),
-            ));
+        $isSetAll = \Controller\Utils::isSetAll( $email, $password);
+        
+        if($isSetAll){
+            \Model\Admin::adminlogin( $email, $password );
+                if(isset($_SESSION["adminid"])){
+                    header("Location: /adminhome");
+                }
+                else{
+                    \Controller\Utils::renderAdminLogin();
+                }
+
         }
         else{
-            echo \View\Loader::make()->render("templates/adminlogin.twig", array(
-                "posts" => \Model\Post::get_all(),
-                "notloggedin" => true,
-            ));
+            \Controller\Utils::renderAdminLogin();
         }
-
+        
     }
 }

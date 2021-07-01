@@ -1,42 +1,29 @@
 <?php
 
 namespace Controller;
+session_start();
 
 class Clienthome {
     public function get() {
-        session_start();
-        if($_SESSION["userid"]!=NULL){
-            echo \View\Loader::make()->render("templates/clienthome.twig" ,array(
-                "bookdata" => \Model\Post::get_allbooks(),
-                "pendingrequests" =>  \Model\Post::showpendingrequests(),
-                "ownedbooks" =>  \Model\Post::get_ownedbooks(),
-                )); 
+       
+        if(isset($_SESSION["userid"])){
+            \Controller\Utils::renderClientHome();
         }
         else{
-            echo \View\Loader::make()->render("templates/login.twig", array(
-               
-                
-            ));
+            header("Location: /login");
         }
        
 
     }
 
     public function post() {
-        session_start();
+        
          $bookid = $_POST['bookid'];
-         if($_SESSION["userid"]!= NULL){
-            \Model\Post::requestbook( $bookid );
-            echo \View\Loader::make()->render("templates/clienthome.twig" ,array(
-                "bookdata" => \Model\Post::get_allbooks(),
-                "pendingrequests" =>  \Model\Post::showpendingrequests(),
-                "ownedbooks" =>  \Model\Post::get_ownedbooks(),
-                )); 
+         if(isset($_SESSION["userid"])){
+            \Model\User::requestbook( $bookid );
+            \Controller\Utils::renderClientHome();
          } else{
-            echo \View\Loader::make()->render("templates/login.twig", array(
-               
-            
-            ));
+            header("Location: /login");
          }
        
     }

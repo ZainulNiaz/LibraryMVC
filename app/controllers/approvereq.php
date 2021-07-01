@@ -2,26 +2,19 @@
 
 namespace Controller;
 
-use PDO;
+session_start();
 
 class Approvereq {
     public function get() {
-        session_start();
-        echo \View\Loader::make()->render("templates/adminhome.twig", array(
-            "bookdata" => \Model\Post::get_allbooks(),
-            "requests" => \Model\Post::showallrequests(),
-        ));
+       
+        \Controller\Utils::renderAdminHome();
     }
 
     public function post() {
-        session_start();
         $requestid = $_POST["requestid"];
         
-        \Model\Post::approvereq( $requestid );
-        echo \View\Loader::make()->render("templates/adminhome.twig", array(
-            "bookdata" => \Model\Post::get_allbooks(),
-            "requests" => \Model\Post::showallrequests(),
-        ));
+        \Model\Admin::approvereq( $requestid );
+        \Controller\Utils::renderAdminHome();
         
 
     }

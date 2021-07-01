@@ -13,5 +13,6 @@ Toro::serve(array(
     "/approvereq" => "Controller\Approvereq" ,
     "/denyreq" => "Controller\Denyreq" ,
     "/returnbook" => "Controller\Returnbook" ,
+    "/logout" => "Controller\Logout" ,
 ));
 

@@ -1,24 +1,26 @@
 <?php
 
 namespace Controller;
-
+session_start();
 class Home {
     public function get() {
-        echo \View\Loader::make()->render("templates/home.twig", array(
-            "posts" => \Model\Post::get_all(),
-        )); 
+        \Controller\Utils::renderHome();
     }
 
     public function post() {
-        session_start();
+      
         $name = $_POST["name"];
         $email = $_POST["email"];
         $password1 = $_POST["password"];
-        $password = password_hash($password1, PASSWORD_DEFAULT);
-        \Model\Post::create($name, $email, $password );
-        echo \View\Loader::make()->render("templates/home.twig", array(
-            "posts" => \Model\Post::get_all(),
-            "alreadyexist" => \Model\Post::checkemailexist($name, $email, $password ),
-        ));
+        $isSetAll = \Controller\Utils::isSetAll($name, $email, $password1);
+        if($isSetAll){
+            $password = password_hash($password1, PASSWORD_DEFAULT);
+            \Model\General::create($name, $email, $password );
+            \Controller\Utils::renderHome();
+        }
+        else{
+            \Controller\Utils::renderHome();
+        }
+      
     }
 }

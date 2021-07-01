@@ -1,25 +1,19 @@
 <?php
 
 namespace Controller;
+session_start();
 
 class Returnbook {
     public function get() {
-        session_start();
-        echo \View\Loader::make()->render("templates/clienthome.twig" ,array(
-            "bookdata" => \Model\Post::get_allbooks(),
-            "pendingrequests" =>  \Model\Post::showpendingrequests(),
-            )); 
+        
+        header("Location: /clienthome");
 
     }
 
     public function post() {
-        session_start();
+    
          $bookid = $_POST['bookid'];
-        \Model\Post::returnbook( $bookid );
-        echo \View\Loader::make()->render("templates/clienthome.twig" ,array(
-            "bookdata" => \Model\Post::get_allbooks(),
-            "pendingrequests" =>  \Model\Post::showpendingrequests(),
-            "ownedbooks" =>  \Model\Post::get_ownedbooks(),
-            )); 
+        \Model\User::returnbook( $bookid );
+        header("Location: /clienthome");
     }
 }
